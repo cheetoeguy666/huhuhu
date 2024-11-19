@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Message</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ffe6e6, #ffd1dc, #ffe6e6);
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .heart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .heart {
+            font-size: 100px;
+            color: #ff6b88;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .click-text {
+            font-size: 16px;
+            color: #ff6b88;
+            text-align: center;
+            margin-top: -20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .message {
+            display: none;
+            font-size: 28px;
+            color: #fff5f7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: appear 1s ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes appear {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            animation: sparkle 1s linear forwards;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="heart-btn" onclick="showMessage()">
+            <div class="heart">❤</div>
+            <div class="click-text">click here</div>
+        </button>
+        <div class="message" id="message">i miss you </div>
+    </div>
+
+    <script>
+        function showMessage() {
+            const heartBtn = document.querySelector('.heart-btn');
+            const message = document.getElementById('message');
+            
+            // Hide heart button
+            heartBtn.style.display = 'none';
+            
+            // Show message
+            message.style.display = 'block';
+            
+            // Create sparkles
+            for (let i = 0; i < 15; i++) {
+                createSparkle();
+            }
+        }
+
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.className = 'sparkle';
+            
+            // Random position
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 200 - 100;
+            
+            sparkle.style.setProperty('--tx', `${x}px`);
+            sparkle.style.setProperty('--ty', `${y}px`);
+            
+            document.body.appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
